@@ -1,0 +1,106 @@
+@use '../../styles/utilities.scss' as *;
+
+.new {
+  margin-top: 0.625rem;
+
+  .top,
+  .bottom {
+    padding: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .top {
+    .content {
+      padding: 0.625rem;
+      border: 0.0625rem solid $gray;
+      background-color: $white;
+      width: 100%;
+
+      h2 {
+        text-transform: capitalize;
+        font-size: 1.5rem;
+        color: lightgray;
+      }
+    }
+  }
+
+  .bottom {
+    padding-top: 0;
+
+    .left,
+    .right {
+      padding: 0.625rem;
+      background-color: $white;
+      border: 0.0625rem solid $gray;
+
+      @media (max-width: $mobile) {
+        padding: 0.8rem;
+      }
+    }
+  }
+
+  .left {
+    width: 30%;
+    padding-right: 0.625rem;
+    text-align: center;
+
+    @media screen and (max-width: $mobile) {
+      width: 100%;
+      border-bottom-color: transparent !important;
+    }
+
+    @media (min-width: $mobile) {
+      border-right-color: transparent !important;
+    }
+
+    img {
+      width: 6.25rem;
+      height: 6.25rem;
+      border-radius: 50%;
+      border: 0.0625rem solid;
+      object-fit: cover;
+      background-color: rgb(224, 224, 224);
+      margin: 0.625rem;
+    }
+  }
+
+  .right {
+    width: 70%;
+    padding-left: 0.625rem;
+
+    @media screen and (max-width: $mobile) {
+      width: 100%;
+      border-top-color: transparent !important;
+    }
+
+    @media (min-width: $mobile) {
+      border-left-color: transparent !important;
+    }
+
+    .content {
+      .formControl {
+        display: flex;
+        flex-direction: column;
+
+        & > * {
+          margin: 0.625rem;
+          padding: 0.625rem;
+          outline: none;
+        }
+
+        label {
+          cursor: pointer;
+        }
+
+        #file {
+          display: none;
+        }
+
+        button {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

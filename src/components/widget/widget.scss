@@ -1,0 +1,70 @@
+@use '../../styles/utilities.scss' as *;
+
+.widget {
+  width: 25%;
+  padding: 0.625rem;
+
+  @media (max-width: $mid) {
+    width: 50%;
+  }
+
+  @media (max-width: $mobile) {
+    width: 100%;
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.625rem;
+    border: 0.0625rem solid $gray;
+    background-color: $white;
+    height: 6.25rem;
+
+    & > * {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .title {
+        font-weight: bold;
+        font-size: 0.875rem;
+        color: $gray;
+      }
+
+      .counter {
+        font-size: 1.75rem;
+        font-weight: 300;
+      }
+
+      .link {
+        font-size: 0.75rem;
+        border-bottom: 0.0625rem solid $gray;
+      }
+
+      .percentage {
+        display: flex;
+        align-items: center;
+        font-size: 0.875rem;
+
+        &.positive {
+          color: $green;
+        }
+
+        &.negative {
+          color: $red;
+
+          svg {
+            transform: rotateZ(180deg);
+          }
+        }
+      }
+
+      .icon {
+        font-size: 2rem;
+        padding: 0.3125rem;
+        border-radius: 0.3125rem;
+        align-self: flex-end;
+      }
+    }
+  }
+}

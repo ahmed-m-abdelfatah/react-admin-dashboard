@@ -1,0 +1,99 @@
+@use '../../styles/utilities.scss' as *;
+
+.featured {
+  width: 30%;
+  padding: 0.625rem;
+
+  @media (max-width: $mobile) {
+    width: 100%;
+  }
+
+  .content {
+    padding: 0.625rem;
+    border: 0.0625rem solid $gray;
+    background-color: $white;
+    height: 100%;
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      color: $gray;
+
+      .title {
+        font-size: 1rem;
+        font-weight: 500;
+      }
+
+      svg {
+        cursor: pointer;
+      }
+    }
+
+    .bottom {
+      padding: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+
+      & > * {
+        margin: 0.625rem 0;
+      }
+
+      .featuredChart {
+        $diameter: 6.25rem;
+        width: $diameter;
+        height: $diameter;
+      }
+
+      .title {
+        font-weight: 500;
+        color: $gray;
+      }
+
+      .amount {
+        font-size: 1.875rem;
+      }
+
+      .description {
+        font-weight: 300;
+        font-size: 0.75rem;
+        color: $gray;
+      }
+
+      .summary {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        .item {
+          text-align: center;
+          padding: 0.625rem;
+
+          .itemTitle {
+            font-size: 0.875rem;
+            color: $gray;
+          }
+
+          .itemResult {
+            display: flex;
+            align-items: center;
+            margin-top: 0.625rem;
+            font-size: 0.875rem;
+
+            &.positive {
+              color: $green;
+            }
+
+            &.negative {
+              color: $red;
+            }
+          }
+        }
+      }
+    }
+  }
+}

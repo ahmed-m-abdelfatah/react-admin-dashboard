@@ -1,0 +1,80 @@
+@use '../../styles/utilities.scss' as *;
+
+.datatable {
+  height: 37.5rem;
+  padding: 1.25rem;
+
+  .datatableTitle {
+    width: 100%;
+    font-size: 1.5rem;
+    color: $gray;
+    margin-bottom: 0.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .link {
+      text-decoration: none;
+      color: $green;
+      font-size: 1rem;
+      font-weight: 400;
+      border: 0.0625rem solid $green;
+      padding: 0.3125rem;
+      border-radius: 0.3125rem;
+      cursor: pointer;
+    }
+  }
+
+  .cellWithImg {
+    display: flex;
+    align-items: center;
+
+    .cellImg {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 1.25rem;
+    }
+  }
+
+  .cellWithStatus {
+    padding: 0.3125rem;
+    border-radius: 0.3125rem;
+
+    &.active {
+      background-color: rgba(0, 128, 0, 0.05);
+      color: $green;
+    }
+    &.pending {
+      background-color: rgba(255, 217, 0, 0.05);
+      color: goldenrod;
+    }
+    &.passive {
+      background-color: rgba(255, 0, 0, 0.05);
+      color: crimson;
+    }
+  }
+
+  .cellAction {
+    display: flex;
+    align-items: center;
+    gap: 0.9375rem;
+
+    .viewButton {
+      padding: 0.125rem 0.3125rem;
+      border-radius: 0.3125rem;
+      color: darkblue;
+      border: 0.0625rem dotted rgba(0, 0, 139, 0.596);
+      cursor: pointer;
+    }
+
+    .deleteButton {
+      padding: 0.125rem 0.3125rem;
+      border-radius: 0.3125rem;
+      color: crimson;
+      border: 0.0625rem dotted rgba(220, 20, 60, 0.6);
+      cursor: pointer;
+    }
+  }
+}

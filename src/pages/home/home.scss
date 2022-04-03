@@ -1,0 +1,27 @@
+@use '../../styles/utilities.scss' as *;
+
+.home {
+  .widgets,
+  .charts {
+    margin-top: 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .charts,
+  .listContainer {
+    margin-top: 0.625rem;
+  }
+
+  .listContainer {
+    padding: 0.625rem;
+    max-width: 80vw;
+    overflow: auto;
+    margin: auto;
+
+    .listTitle {
+      font-weight: 500;
+      color: $gray;
+    }
+  }
+}

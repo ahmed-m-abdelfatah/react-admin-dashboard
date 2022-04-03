@@ -1,0 +1,93 @@
+@use '../../styles/utilities.scss' as *;
+
+.single {
+  margin-top: 0.625rem;
+
+  .top {
+    padding: 1.25rem;
+    display: flex;
+
+    @media (max-width: $mobile) {
+      flex-direction: column;
+    }
+
+    .left {
+      padding: 0.625rem;
+      flex: 1;
+
+      .content {
+        padding: 0.625rem;
+        border: 0.0625rem solid $gray;
+        background-color: $white;
+        position: relative;
+        height: 100%;
+
+        .editButton {
+          position: absolute;
+          top: 0;
+          right: 0;
+          text-transform: capitalize;
+          padding: 0.3125rem;
+          font-size: 0.75rem;
+          color: $mainColor;
+          background-color: rgba($color: $mainColor, $alpha: 0.4);
+          cursor: pointer;
+        }
+
+        .item {
+          display: flex;
+          gap: 1.25rem;
+
+          @media (max-width: $mobile) {
+            flex-direction: column;
+          }
+
+          img.itemImage {
+            width: 6.25rem;
+            height: 6.25rem;
+            border-radius: 50%;
+          }
+
+          .details {
+            .itemTitle {
+              margin-bottom: 0.625rem;
+              color: #555;
+            }
+
+            .detailItem {
+              margin-bottom: 0.625rem;
+              font-size: 0.875rem;
+
+              .itemKey {
+                font-weight: bold;
+                color: gray;
+                margin-right: 0.3125rem;
+              }
+
+              .itemValue {
+                font-weight: 300;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .bottom {
+    padding: 1.25rem;
+    max-width: 80vw;
+    margin: auto;
+
+    .content {
+      overflow: auto;
+    }
+  }
+
+  .title {
+    text-transform: capitalize;
+    font-size: 1rem;
+    color: lightgray;
+    margin-bottom: 1.25rem;
+  }
+}

@@ -1,0 +1,25 @@
+@use '../../styles/utilities.scss' as *;
+
+.chart {
+  width: 70%;
+  padding: 0.625rem;
+
+  @media (max-width: $mobile) {
+    width: 100%;
+  }
+
+  .content {
+    padding: 0.625rem;
+    border: 0.0625rem solid $gray;
+    background-color: $white;
+    height: 100%;
+
+    .chartItem {
+      padding: 1.25rem;
+      height: 80%;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+@use '../../styles/utilities.scss' as *;
+
+.table {
+  .cellWrapper {
+    display: flex;
+    align-items: center;
+
+    .image {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      margin-right: 0.625rem;
+      object-fit: cover;
+    }
+  }
+
+  .status {
+    padding: 0.3125rem;
+    border-radius: 0.3125rem;
+
+    &.Approved {
+      color: $green;
+      background-color: rgba(0, 128, 0, 0.151);
+    }
+    &.Pending {
+      color: $goldenrod;
+      background-color: rgba(189, 189, 3, 0.103);
+    }
+  }
+}

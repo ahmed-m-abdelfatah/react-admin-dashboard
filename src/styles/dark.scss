@@ -1,0 +1,23 @@
+@use './utilities.scss' as *;
+
+.app.dark {
+  background-color: #222 !important;
+  color: rgb(156, 156, 156) !important;
+
+  .content,
+  .sidebar,
+  .formControl,
+  div,
+  input,
+  button {
+    background-color: #222 !important;
+    color: rgb(156, 156, 156) !important;
+  }
+
+  table {
+    & * {
+      background-color: #222 !important;
+      color: rgb(156, 156, 156) !important;
+    }
+  }
+}

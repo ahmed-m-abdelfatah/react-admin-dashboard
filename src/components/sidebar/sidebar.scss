@@ -1,0 +1,140 @@
+@use '../../styles/utilities.scss' as *;
+
+.sidebar {
+  flex: 1;
+  border-right: $sidebarBorder;
+  min-height: 100vh;
+  background-color: $white;
+  display: none;
+
+  &.active {
+    display: block;
+  }
+
+  @media (max-width: $mobile) {
+    min-width: 100%;
+
+    &.active {
+      ~ * {
+        display: none;
+      }
+    }
+
+    ~ * {
+      display: block;
+    }
+  }
+
+  .top {
+    padding: $commonPadding;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: $sidebarBorder;
+    text-transform: uppercase;
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: $mainColor;
+      user-select: none;
+      line-height: 2.2;
+
+      a {
+        color: $mainColor;
+        text-decoration: none;
+
+        &:focus {
+          color: $mainColor;
+        }
+      }
+    }
+
+    .close {
+      display: none;
+      user-select: none;
+      cursor: pointer;
+
+      @media (max-width: $mobile) {
+        display: block;
+      }
+    }
+  }
+
+  .center {
+    padding: $commonPadding;
+
+    ul {
+      .title {
+        font-size: 0.625rem;
+        font-weight: bold;
+        color: $gray;
+        margin-top: 0.9375rem;
+        margin-bottom: 0.3125rem;
+        text-transform: uppercase;
+      }
+
+      li {
+        a {
+          display: flex;
+          align-items: center;
+          padding: 0.3125rem;
+          text-decoration: none;
+
+          &:hover,
+          &.active {
+            background-color: $sidebarHoverColor;
+          }
+
+          svg.icon {
+            font-size: 1.125rem;
+            color: $sidebarIconColor;
+          }
+
+          span {
+            padding-left: 0.625rem;
+            font-size: 0.8125rem;
+            text-transform: capitalize;
+            font-weight: 600;
+            color: $gray;
+          }
+        }
+      }
+    }
+  }
+
+  .bottom {
+    padding: $commonPadding;
+    padding-top: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .title {
+      font-size: 0.625rem;
+      font-weight: bold;
+      color: $gray;
+      margin-top: 0.9375rem;
+      margin-bottom: 0.3125rem;
+      text-transform: uppercase;
+      width: 100%;
+    }
+
+    .colorOption {
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 0.3125rem;
+      border: 1px solid $sidebarIconColor;
+      cursor: pointer;
+      margin: 0.3125rem;
+
+      &:first-of-type {
+        background-color: $white !important;
+      }
+
+      &:last-of-type {
+        background-color: $dark !important;
+      }
+    }
+  }
+}
