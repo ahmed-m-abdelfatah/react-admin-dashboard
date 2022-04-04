@@ -41,5 +41,6 @@ html {
   .container {
     flex: 6;
     padding: $commonPadding;
+    min-height: 100vh;
   }
 }
