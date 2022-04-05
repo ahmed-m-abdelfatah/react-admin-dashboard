@@ -13,7 +13,7 @@ import StoreIcon from '@mui/icons-material/Store';
 // import PsychologyOutlinedIcon from '@mui/icons-material/PsychologyOutlined';
 // import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { toggleSidebar } from '../../App.js';
 import { Link, NavLink } from 'react-router-dom';
 import {
@@ -30,11 +30,16 @@ import {
   // profilePath,
   // logoutPath,
 } from '../../pathsSource.js';
-import { DarkModeContext } from '../../context/darkModeContext.js';
+import {
+  actionDarkCase,
+  actionLightCase,
+  useDarkModeContext,
+} from '../../context/darkModeContext.js';
 
 const Sidebar = ({ sidebarRef }) => {
   console.log('~ Sidebar');
-  const { dispatch } = useContext(DarkModeContext);
+
+  const { dispatch } = useDarkModeContext();
 
   useEffect(() => {
     window.innerWidth > 767 && toggleSidebar();
@@ -141,10 +146,10 @@ const Sidebar = ({ sidebarRef }) => {
         <p className='title'>THEME</p>
         <div
           className='colorOption'
-          onClick={() => dispatch({ type: 'LIGHT' })}></div>
+          onClick={() => dispatch(actionLightCase)}></div>
         <div
           className='colorOption'
-          onClick={() => dispatch({ type: 'DArk' })}></div>
+          onClick={() => dispatch(actionDarkCase)}></div>
       </div>
     </aside>
   );

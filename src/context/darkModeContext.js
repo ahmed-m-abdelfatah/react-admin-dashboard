@@ -1,27 +1,43 @@
-import { createContext, useReducer } from 'react';
-import darkModeReducer from './darkModeReducer.js';
+import { createContext, useContext, useReducer } from 'react';
 
-const initialState = {
-  darkMode: false,
-};
+const DarkModeContext = createContext();
 
-export const DarkModeContext = createContext(initialState);
+export function useDarkModeContext() {
+  return useContext(DarkModeContext);
+}
 
-export const DarkModeContextProvider = ({ children }) => {
-  let dark;
-  if (localStorage.getItem('dark')) {
-    dark = localStorage.getItem('dark');
-  } else {
-    dark = localStorage.setItem('dark', initialState.darkMode);
+const localStorageDarkModeData = localStorage.getItem('dark');
+let darkModeInitialState = JSON.parse(localStorageDarkModeData) || false;
+
+export const actionLightCase = 'LIGHT';
+export const actionDarkCase = 'Dark';
+export const actionToggleCase = 'TOGGLE';
+
+function darkModeReducer(state, action) {
+  switch (action) {
+    case actionLightCase:
+      state = false;
+      break;
+    case actionDarkCase:
+      state = true;
+      break;
+    case actionToggleCase:
+      state = !state;
+      break;
+    default:
+      break;
   }
 
-  const [state, dispatch] = useReducer(darkModeReducer, {
-    ...initialState,
-    darkMode: dark,
-  });
+  localStorage.setItem('dark', JSON.stringify(state));
+  return state;
+}
+
+export const DarkModeContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(darkModeReducer, darkModeInitialState);
+  console.log('~ state', state);
 
   return (
-    <DarkModeContext.Provider value={{ darkMode: state.darkMode, dispatch }}>
+    <DarkModeContext.Provider value={{ state, dispatch }}>
       {children}
     </DarkModeContext.Provider>
   );

@@ -11,12 +11,15 @@ import Menu from '@mui/icons-material/Menu';
 import { toggleSidebar } from '../../App.js';
 // import { Link } from 'react-router-dom';
 // import { notificationsPath } from '../../pathsSource.js';
-import { useContext } from 'react';
-import { DarkModeContext } from '../../context/darkModeContext.js';
+import {
+  actionToggleCase,
+  useDarkModeContext,
+} from '../../context/darkModeContext.js';
 
 const Navbar = () => {
   console.log('~ Navbar');
-  const { dispatch } = useContext(DarkModeContext);
+
+  const { dispatch } = useDarkModeContext();
 
   return (
     <div className='navbar'>
@@ -34,9 +37,7 @@ const Navbar = () => {
           {/* <div className='item'>
             <LanguageOutlinedIcon className='icon' />
           </div> */}
-          <div
-            className='item'
-            onClick={() => dispatch({ type: 'TOGGLE_DARK_MODE' })}>
+          <div className='item' onClick={() => dispatch(actionToggleCase)}>
             <DarkModeOutlinedIcon className='icon' />
           </div>
           {/* <div className='item'>

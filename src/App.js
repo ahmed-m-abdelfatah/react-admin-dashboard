@@ -10,7 +10,7 @@ import Sidebar from './components/sidebar/Sidebar.jsx';
 import Navbar from './components/navbar/Navbar.jsx';
 
 import { Routes, Route } from 'react-router-dom';
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import {
   homePath,
   loginPath,
@@ -20,7 +20,7 @@ import {
   userIdPath,
   usersPath,
 } from './pathsSource.js';
-import { DarkModeContext } from './context/darkModeContext.js';
+import { useDarkModeContext } from './context/darkModeContext.js';
 
 let sidebarRef;
 
@@ -28,7 +28,7 @@ export default function App() {
   console.log('~ App');
   sidebarRef = useRef('sidebar');
 
-  const { darkMode } = useContext(DarkModeContext);
+  const { state: darkMode } = useDarkModeContext();
 
   return (
     <>
