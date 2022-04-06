@@ -9,7 +9,7 @@ import New from './pages/new/New.jsx';
 import Sidebar from './components/sidebar/Sidebar.jsx';
 import Navbar from './components/navbar/Navbar.jsx';
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { useRef } from 'react';
 import {
   homePath,
@@ -28,14 +28,17 @@ export default function App() {
   console.log('~ App');
   sidebarRef = useRef('sidebar');
 
+  const { pathname } = useLocation();
+  console.log('~ location', pathname);
+
   const { state: darkMode } = useDarkModeContext();
 
   return (
     <>
       <div className={darkMode ? 'app dark' : 'app'}>
-        <Sidebar sidebarRef={sidebarRef} />
+        {pathname !== loginPath && <Sidebar sidebarRef={sidebarRef} />}
         <section className='container'>
-          <Navbar />
+          {pathname !== loginPath && <Navbar />}
 
           <Routes>
             <Route path={homePath}>

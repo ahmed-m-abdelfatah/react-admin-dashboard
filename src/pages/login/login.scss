@@ -1,9 +1,30 @@
-@use '../../styles/utilities.scss';
+@use '../../styles/utilities.scss' as *;
 
 .login {
   height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: -$commonPadding;
+
+  form {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    flex-direction: column;
+
+    input,
+    button {
+      margin: 0.625rem;
+      outline: none;
+      border: 1px solid;
+      padding: 10px 20px;
+    }
+
+    button {
+      cursor: pointer;
+      background-color: $mainColor;
+      color: white;
+    }
+  }
 }
