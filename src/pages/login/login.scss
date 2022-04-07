@@ -17,14 +17,23 @@
     button {
       margin: 0.625rem;
       outline: none;
-      border: 1px solid;
-      padding: 10px 20px;
+      border: 0.0625rem solid;
+      padding: 0.625rem 1.25rem;
     }
 
     button {
       cursor: pointer;
       background-color: $mainColor;
       color: white;
+    }
+
+    span {
+      display: block;
+      margin: 0.625rem;
+      text-align: center;
+      padding: 0.625rem 1.25rem;
+      color: red !important;
+      text-transform: capitalize;
     }
   }
 }
