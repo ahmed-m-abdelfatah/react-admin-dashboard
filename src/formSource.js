@@ -55,3 +55,16 @@ export const productInputs = [
     type: 'text',
   },
 ];
+
+export const loginInputs = [
+  {
+    type: 'email',
+    placeholder: 'Email',
+    name: 'email',
+  },
+  {
+    type: 'password',
+    placeholder: 'Password',
+    name: 'password',
+  },
+];

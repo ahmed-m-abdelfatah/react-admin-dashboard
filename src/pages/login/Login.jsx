@@ -2,6 +2,8 @@ import './login.scss';
 
 import { useState } from 'react';
 import Joi from 'joi';
+import { v4 as uuidV4 } from 'uuid';
+import { loginInputs } from '../../formSource.js';
 
 const Login = () => {
   console.log('~ Login');
@@ -14,9 +16,10 @@ const Login = () => {
   });
 
   function handelChange(e) {
+    console.log('~ e', e);
     setError(false);
     setErrorMsg('');
-    return setUser({ ...user, [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value });
   }
 
   function validateForm(user) {
@@ -34,18 +37,34 @@ const Login = () => {
   function handelSubmit(e) {
     e.preventDefault();
     let validationResult = validateForm(user);
+
     if (validationResult.error) {
       setError(true);
       setErrorMsg(validationResult.error.message);
+      console.log('~ eeeeeeeeeeeeeeeeeeeeee');
     } else {
       // TODO firebase
+      console.log('~ TODO firebase');
     }
-    console.log('~ TODO firebase');
   }
 
   return (
     <div className='login'>
       <form onSubmit={handelSubmit}>
+        {/* NOT WORKING WITH ON CHANGE */}
+        {loginInputs.map(({ type, placeholder, name }) => {
+          return (
+            <input
+              key={uuidV4()}
+              onChange={handelChange}
+              type={type}
+              placeholder={placeholder}
+              name={name}
+            />
+          );
+        })}
+
+        {/*  WORKING WITH ON CHANGE */}
         <input
           onChange={handelChange}
           type='email'
@@ -58,6 +77,7 @@ const Login = () => {
           placeholder='Password'
           name='password'
         />
+
         <button type='submit'>Login</button>
         {error && <span>{errorMsg.replace(/"/g, '')}</span>}
       </form>
