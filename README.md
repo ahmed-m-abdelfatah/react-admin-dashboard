@@ -15,7 +15,7 @@
 
 - [x] save dark mode to local storage
 - [x] fix white root div in dark mode
-- [ ] make side bar auto hide after select a link in mobile
+- [x] make side bar auto hide after select a link in mobile
 - [x] some scss refactor
 
 ## view live
