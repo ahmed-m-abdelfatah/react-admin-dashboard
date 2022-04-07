@@ -21,16 +21,15 @@ import {
   usersPath,
 } from './pathsSource.js';
 import { useDarkModeContext } from './context/darkModeContext.js';
+import { mobileScreen } from './utilities.js';
 
 let sidebarRef;
 
 export default function App() {
   console.log('~ App');
+
   sidebarRef = useRef('sidebar');
-
   const { pathname } = useLocation();
-  console.log('~ location', pathname);
-
   const { state: darkMode } = useDarkModeContext();
 
   return (
@@ -66,4 +65,9 @@ export default function App() {
 
 export const toggleSidebar = () => {
   sidebarRef.current.classList.toggle('active');
+};
+
+export const hideSidebarInMobile = () => {
+  mobileScreen() && setTimeout(toggleSidebar, 0);
+  console.log('~ mobileScreen()', mobileScreen());
 };
