@@ -16,10 +16,11 @@ const Login = () => {
   });
 
   function handelChange(e) {
-    console.log('~ e', e);
+    // console.log('~ e', e);
     setError(false);
     setErrorMsg('');
     setUser({ ...user, [e.target.name]: e.target.value });
+    console.log('~ user', user);
   }
 
   function validateForm(user) {
