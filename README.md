@@ -5,6 +5,8 @@
 - Youtube videos
   - https://youtu.be/yKV1IGahXqA `Done`
   - https://youtu.be/D9W7AFeJ3kk
+- Docs
+  - https://firebase.google.com/docs/auth/where-to-start
 
 ## some features
 
