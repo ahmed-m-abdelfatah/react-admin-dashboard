@@ -10,7 +10,7 @@ import Sidebar from './components/sidebar/Sidebar.jsx';
 import Navbar from './components/navbar/Navbar.jsx';
 
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import {
   homePath,
   loginPath,
@@ -33,12 +33,22 @@ export default function App() {
   const { pathname } = useLocation();
   const { state: darkMode } = useDarkModeContext();
 
+  const [notFound, setNotFound] = useState(false);
+
+  function showSidebarAndNavbar() {
+    if (pathname === loginPath || notFound === true) {
+      return false;
+    }
+
+    return true;
+  }
+
   return (
     <>
       <div className={darkMode ? 'app dark' : 'app'}>
-        {pathname !== loginPath && <Sidebar sidebarRef={sidebarRef} />}
+        {showSidebarAndNavbar() && <Sidebar sidebarRef={sidebarRef} />}
         <section className='container'>
-          {pathname !== loginPath && <Navbar />}
+          {showSidebarAndNavbar() && <Navbar />}
 
           <Routes>
             <Route path={homePath}>
@@ -57,7 +67,10 @@ export default function App() {
                 <Route path={newPath} element={<New />} />
               </Route>
 
-              <Route path='*' element={<NotFound />} />
+              <Route
+                path='*'
+                element={<NotFound setNotFound={setNotFound} />}
+              />
             </Route>
           </Routes>
         </section>
