@@ -10,6 +10,7 @@
 
 - sidebar shows by default in bigger screens and hidden in smaller ones
 - app is responsive
+- add 404 page
 
 ## Tasks to be done later
 
