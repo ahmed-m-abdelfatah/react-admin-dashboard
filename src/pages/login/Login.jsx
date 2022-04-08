@@ -2,7 +2,6 @@ import './login.scss';
 
 import { useState } from 'react';
 import Joi from 'joi';
-import { v4 as uuidV4 } from 'uuid';
 import { loginInputs } from '../../formSource.js';
 
 const Login = () => {
@@ -15,18 +14,22 @@ const Login = () => {
     password: '',
   });
 
-  function handelChange(e) {
-    // console.log('~ e', e);
+  function clearErrors() {
     setError(false);
     setErrorMsg('');
-    setUser({ ...user, [e.target.name]: e.target.value });
-    console.log('~ user', user);
   }
+
+  function handelChange(e) {
+    clearErrors();
+    setUser({ ...user, [e.target.name]: e.target.value }); // setUser like an async
+    // console.log('~ user', user); // log goes first sync
+  }
+  // console.log('~ user', user); // after handelChange
 
   function validateForm(user) {
     let schema = Joi.object({
       email: Joi.string()
-        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+        .email({ minDomainSegments: 2, tlds: false })
         .required(),
 
       password: Joi.string().required(),
@@ -37,8 +40,9 @@ const Login = () => {
 
   function handelSubmit(e) {
     e.preventDefault();
-    let validationResult = validateForm(user);
+    clearErrors();
 
+    let validationResult = validateForm(user);
     if (validationResult.error) {
       setError(true);
       setErrorMsg(validationResult.error.message);
@@ -53,10 +57,11 @@ const Login = () => {
     <div className='login'>
       <form onSubmit={handelSubmit}>
         {/* NOT WORKING WITH ON CHANGE */}
-        {loginInputs.map(({ type, placeholder, name }) => {
+        {loginInputs.map(({ type, placeholder, name }, index) => {
           return (
             <input
-              key={uuidV4()}
+              // key={uuidV4()} wrong cuz in each render (setState) this key creates a new input with different key value
+              key={index}
               onChange={handelChange}
               type={type}
               placeholder={placeholder}
@@ -64,20 +69,6 @@ const Login = () => {
             />
           );
         })}
-
-        {/*  WORKING WITH ON CHANGE */}
-        <input
-          onChange={handelChange}
-          type='email'
-          placeholder='Email'
-          name='email'
-        />
-        <input
-          onChange={handelChange}
-          type='password'
-          placeholder='Password'
-          name='password'
-        />
 
         <button type='submit'>Login</button>
         {error && <span>{errorMsg.replace(/"/g, '')}</span>}

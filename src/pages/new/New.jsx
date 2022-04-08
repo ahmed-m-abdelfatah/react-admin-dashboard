@@ -2,7 +2,6 @@ import './new.scss';
 
 import noImage from '../../assets/no_image.png';
 import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
-import { v4 as uuidV4 } from 'uuid';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { productInputs, userInputs } from '../../formSource.js';
@@ -72,9 +71,9 @@ const New = () => {
                 onChange={e => setFile(e.target.files[0])}
               />
 
-              {pageData.inputsData.map(({ placeholder, type }) => {
+              {pageData.inputsData.map(({ placeholder, type }, index) => {
                 return (
-                  <input key={uuidV4()} type={type} placeholder={placeholder} />
+                  <input key={index} type={type} placeholder={placeholder} />
                 );
               })}
               <button type='submit'>{pageData.submit}</button>

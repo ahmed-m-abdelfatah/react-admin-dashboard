@@ -22,6 +22,7 @@ import {
 } from './pathsSource.js';
 import { useDarkModeContext } from './context/darkModeContext.js';
 import { mobileScreen } from './utilities.js';
+import NotFound from './pages/notFound/NotFound.jsx';
 
 let sidebarRef;
 
@@ -55,6 +56,8 @@ export default function App() {
                 <Route path={productIdPath} element={<Single />} />
                 <Route path={newPath} element={<New />} />
               </Route>
+
+              <Route path='*' element={<NotFound />} />
             </Route>
           </Routes>
         </section>
