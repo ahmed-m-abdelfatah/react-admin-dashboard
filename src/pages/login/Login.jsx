@@ -5,6 +5,8 @@ import Joi from 'joi';
 import { loginInputs } from '../../formSource.js';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase.js';
+import { useNavigate } from 'react-router-dom';
+import { homePath } from '../../pathsSource.js';
 
 const Login = () => {
   console.log('~ Login');
@@ -15,6 +17,8 @@ const Login = () => {
     email: '',
     password: '',
   });
+
+  const navigate = useNavigate();
 
   function clearErrors() {
     setError(false);
@@ -54,21 +58,22 @@ const Login = () => {
   }
 
   function firebaseLogin({ email, password }) {
-    console.log('~ email', email);
-    console.log('~ password', password);
+    // console.log('~ email', email);
+    // console.log('~ password', password);
 
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         // Signed in
         const user = userCredential.user;
-        console.log('~ user', user);
+        // console.log('~ user', user);
+        navigate(homePath);
         // ...
       })
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log('~ errorCode', errorCode);
-        console.log('~ errorMessage', errorMessage);
+        // console.log('~ errorCode', errorCode);
+        // console.log('~ errorMessage', errorMessage);
       });
   }
 

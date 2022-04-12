@@ -9,7 +9,7 @@ import New from './pages/new/New.jsx';
 import Sidebar from './components/sidebar/Sidebar.jsx';
 import Navbar from './components/navbar/Navbar.jsx';
 
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import {
   homePath,
@@ -43,6 +43,17 @@ export default function App() {
     return true;
   }
 
+  // Start path protection
+  const user = false;
+
+  const RequireAuth = ({ children }) => {
+    if (user) {
+      return children;
+    } else {
+      return <Navigate to={loginPath} />;
+    }
+  };
+
   return (
     <>
       <div className={darkMode ? 'app dark' : 'app'}>
@@ -52,19 +63,68 @@ export default function App() {
 
           <Routes>
             <Route path={homePath}>
-              <Route index element={<Home />} />
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <Home />
+                  </RequireAuth>
+                }
+              />
               <Route path={loginPath} element={<Login />} />
 
               <Route path={usersPath}>
-                <Route index element={<List />} />
-                <Route path={userIdPath} element={<Single />} />
-                <Route path={newPath} element={<New />} />
+                <Route
+                  index
+                  element={
+                    <RequireAuth>
+                      <List />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path={userIdPath}
+                  element={
+                    <RequireAuth>
+                      <Single />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path={newPath}
+                  element={
+                    <RequireAuth>
+                      <New />
+                    </RequireAuth>
+                  }
+                />
               </Route>
 
               <Route path={productsPath}>
-                <Route index element={<List />} />
-                <Route path={productIdPath} element={<Single />} />
-                <Route path={newPath} element={<New />} />
+                <Route
+                  index
+                  element={
+                    <RequireAuth>
+                      <List />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path={productIdPath}
+                  element={
+                    <RequireAuth>
+                      <Single />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path={newPath}
+                  element={
+                    <RequireAuth>
+                      <New />
+                    </RequireAuth>
+                  }
+                />
               </Route>
 
               <Route
