@@ -1,14 +1,6 @@
 import { createContext, useContext, useReducer } from 'react';
 
-const DarkModeContext = createContext();
-
-export function useDarkModeContext() {
-  return useContext(DarkModeContext);
-}
-
-const localStorageDarkModeData = localStorage.getItem('dark');
-let darkModeInitialState = JSON.parse(localStorageDarkModeData) || false;
-
+// Start reducer function
 export const actionLightCase = 'LIGHT';
 export const actionDarkCase = 'Dark';
 export const actionToggleCase = 'TOGGLE';
@@ -30,6 +22,18 @@ function darkModeReducer(state, action) {
 
   localStorage.setItem('dark', JSON.stringify(state));
   return state;
+}
+
+// Start context provider
+// Initial state
+const localStorageDarkModeData = localStorage.getItem('dark');
+const darkModeInitialState = JSON.parse(localStorageDarkModeData) || false;
+
+// Create context
+const DarkModeContext = createContext(darkModeInitialState);
+
+export function useDarkModeContext() {
+  return useContext(DarkModeContext);
 }
 
 export const DarkModeContextProvider = ({ children }) => {

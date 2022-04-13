@@ -44,7 +44,7 @@ export default function App() {
   }
 
   // Start path protection
-  const user = false;
+  const user = true;
 
   const RequireAuth = ({ children }) => {
     if (user) {
