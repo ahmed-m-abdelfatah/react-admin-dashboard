@@ -14,7 +14,6 @@ import { getDataObjectFromInputs } from '../../utilities.js';
 
 // joi validation
 import Joi from 'joi';
-import { async } from '@firebase/util';
 
 const New = () => {
   console.log('~ New');
