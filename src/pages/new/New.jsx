@@ -101,7 +101,13 @@ const New = () => {
             .required(),
           phone: Joi.string()
             .length(11)
-            .pattern(/^01[0|1|2][0-9]{8}$/g) // EGY phone pattern
+            .pattern(/^01[0|1|2][0-9]{8}$/)
+            .label('phone')
+            .messages({
+              'string.min': 'Must have at least 11 numbers',
+              'object.regex': 'This is not a valid EGY number',
+              'string.pattern.base': 'This is not a valid EGY number',
+            }) // EGY phone pattern
             .required(),
           password: Joi.string().required(),
           address: Joi.string().min(3).required(),
@@ -122,6 +128,7 @@ const New = () => {
     e.preventDefault();
 
     let validationResult = validateForm(data);
+    console.log('~ validationResult', validationResult);
     if (validationResult.error) {
       setError(true);
       setErrorMsg(validationResult.error.message);
