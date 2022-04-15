@@ -23,6 +23,7 @@ import {
 import { useDarkModeContext } from './context/darkModeContext.js';
 import { mobileScreen } from './utilities.js';
 import NotFound from './pages/notFound/NotFound.jsx';
+import { useAuthContext } from './context/authContext.js';
 
 let sidebarRef;
 
@@ -44,10 +45,11 @@ export default function App() {
   }
 
   // Start path protection
-  const user = true;
+  const { currentUser } = useAuthContext();
+  // console.log('~ currentUser', currentUser);
 
   const RequireAuth = ({ children }) => {
-    if (user) {
+    if (currentUser) {
       return children;
     } else {
       return <Navigate to={loginPath} />;
@@ -145,5 +147,5 @@ export const toggleSidebar = () => {
 
 export const hideSidebarInMobile = () => {
   mobileScreen() && setTimeout(toggleSidebar, 0);
-  console.log('~ mobileScreen()', mobileScreen());
+  // console.log('~ mobileScreen()', mobileScreen());
 };

@@ -3,22 +3,25 @@ import './login.scss';
 import { useState } from 'react';
 import Joi from 'joi';
 import { loginInputs } from '../../formSource.js';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase.js';
 import { useNavigate } from 'react-router-dom';
 import { homePath } from '../../pathsSource.js';
+import { loginCase, useAuthContext } from '../../context/authContext.js';
+
+// firebase auth
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase.js';
 
 const Login = () => {
   console.log('~ Login');
 
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const navigate = useNavigate();
+  const { dispatch } = useAuthContext();
   const [user, setUser] = useState({
     email: '',
     password: '',
   });
-
-  const navigate = useNavigate();
 
   function clearErrors() {
     setError(false);
@@ -65,22 +68,22 @@ const Login = () => {
       .then(userCredential => {
         // Signed in
         const user = userCredential.user;
-        // console.log('~ user', user);
+        console.log('~ user', user);
+        dispatch({ type: loginCase, payload: user });
+
         navigate(homePath);
-        // ...
       })
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // console.log('~ errorCode', errorCode);
-        // console.log('~ errorMessage', errorMessage);
+        setError(true);
+        setErrorMsg(`errorCode : ${errorCode} errorMessage : ${errorMessage}`);
       });
   }
 
   return (
     <div className='login'>
       <form onSubmit={handelSubmit}>
-        {/* NOT WORKING WITH ON CHANGE */}
         {loginInputs.map(({ type, placeholder, name }, index) => {
           return (
             <input

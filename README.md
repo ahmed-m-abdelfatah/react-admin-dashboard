@@ -7,6 +7,8 @@
   - https://youtu.be/D9W7AFeJ3kk
 - Docs
   - https://firebase.google.com/docs/auth/where-to-start
+  - https://firebase.google.com/docs/firestore/quickstart
+  - https://firebase.google.com/docs/firestore/manage-data/add-data
 
 ## some features
 

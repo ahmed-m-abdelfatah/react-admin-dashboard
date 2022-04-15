@@ -1,6 +1,6 @@
 export const userInputs = [
   {
-    placeholder: 'Username',
+    placeholder: 'User Name',
     type: 'text',
   },
   {

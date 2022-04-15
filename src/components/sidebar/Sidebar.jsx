@@ -45,7 +45,7 @@ const Sidebar = ({ sidebarRef }) => {
   // component did mount
   useEffect(() => {
     !mobileScreen() && toggleSidebar();
-    console.log('~ mobileScreen()', mobileScreen());
+    // console.log('~ mobileScreen()', mobileScreen());
   }, []);
 
   return (
