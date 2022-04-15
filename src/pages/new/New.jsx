@@ -10,13 +10,18 @@ import { usersPath, productsPath } from '../../pathsSource.js';
 // firebase firestore
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../firebase.js';
-import { camelize, getDataObjectFromInputs } from '../../utilities.js';
+import { getDataObjectFromInputs } from '../../utilities.js';
+
+// joi validation
+import Joi from 'joi';
+import { async } from '@firebase/util';
 
 const New = () => {
   console.log('~ New');
 
   const locationUrl = useLocation().pathname;
   let pageDisplayData = { title: '', submit: '', inputsData: [] };
+  const [file, setFile] = useState(null);
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [data, setData] = useState(() => {
@@ -33,8 +38,6 @@ const New = () => {
         return null;
     }
   });
-
-  console.log('~ data', data);
 
   // Add page data depending on url
   switch (true) {
@@ -63,8 +66,6 @@ const New = () => {
     }
   }
 
-  // TODO joi check
-
   function clearErrors() {
     setError(false);
     setErrorMsg('');
@@ -72,24 +73,94 @@ const New = () => {
 
   function handelChange(e) {
     clearErrors();
-    // setUser({ ...user, [e.target.name]: e.target.value });
+    setData({ ...data, [e.target.name]: e.target.value });
   }
 
-  async function handelSubmit(e) {
+  function validateForm(data) {
+    let schema;
+
+    switch (true) {
+      case locationUrl.startsWith(productsPath): {
+        schema = Joi.object({
+          title: Joi.string().min(3).required(),
+          description: Joi.string().min(3).required(),
+          category: Joi.string().min(3).required(),
+          price: Joi.number().min(0).required(),
+          stock: Joi.number().min(0).required(),
+        });
+        break;
+      }
+
+      case locationUrl.startsWith(usersPath): {
+        schema = Joi.object({
+          username: Joi.string().min(3).required(),
+          firstName: Joi.string().min(3).required(),
+          lastName: Joi.string().min(3).required(),
+          email: Joi.string()
+            .email({ minDomainSegments: 2, tlds: false })
+            .required(),
+          phone: Joi.string()
+            .length(11)
+            .pattern(/^01[0|1|2][0-9]{8}$/g) // EGY phone pattern
+            .required(),
+          password: Joi.string().required(),
+          address: Joi.string().min(3).required(),
+          country: Joi.string().min(3).required(),
+        });
+        break;
+      }
+
+      default: {
+        return; // type is undefined
+      }
+    }
+
+    return schema.validate(data, { abortEarly: true });
+  }
+
+  function handelSubmit(e) {
     e.preventDefault();
 
-    // Add a new document in collection "cities"
-    const res = await addDoc(collection(db, 'cities'), {
-      name: 'Los Angeles',
-      state: 'CA',
-      country: 'USA',
-      timestamp: serverTimestamp(),
-    });
-    console.log('~ res', res);
+    let validationResult = validateForm(data);
+    if (validationResult.error) {
+      setError(true);
+      setErrorMsg(validationResult.error.message);
+    } else {
+      addDataToFireBase(data);
+    }
   }
 
-  const [file, setFile] = useState(null);
-  // console.log('~ file', file);
+  function addDataToFireBase(data) {
+    let dataBaseId;
+
+    switch (true) {
+      case locationUrl.startsWith(productsPath): {
+        dataBaseId = 'products';
+        break;
+      }
+
+      case locationUrl.startsWith(usersPath): {
+        dataBaseId = 'users';
+        break;
+      }
+
+      default: {
+        return;
+      }
+    }
+
+    addDoc(collection(db, dataBaseId), {
+      ...data,
+      timestamp: serverTimestamp(),
+    })
+      .then(res => console.log(res))
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setError(true);
+        setErrorMsg(`errorCode : ${errorCode} errorMessage : ${errorMessage}`);
+      });
+  }
 
   return (
     <div className='new'>
@@ -121,9 +192,15 @@ const New = () => {
               />
 
               {pageDisplayData.inputsData.map(
-                ({ placeholder, type }, index) => {
+                ({ placeholder, type, name }, index) => {
                   return (
-                    <input key={index} type={type} placeholder={placeholder} />
+                    <input
+                      key={index}
+                      type={type}
+                      placeholder={placeholder}
+                      name={name}
+                      onChange={handelChange}
+                    />
                   );
                 },
               )}

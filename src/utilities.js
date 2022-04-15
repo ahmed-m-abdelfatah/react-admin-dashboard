@@ -13,7 +13,7 @@ export function camelize(str) {
 export function getDataObjectFromInputs(obj) {
   const stash = {};
   obj.map(input => {
-    return (stash[camelize(input.placeholder)] = '');
+    return (stash[camelize(input.name)] = '');
   });
 
   return stash;

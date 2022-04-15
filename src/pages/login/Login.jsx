@@ -61,16 +61,10 @@ const Login = () => {
   }
 
   function firebaseLogin({ email, password }) {
-    // console.log('~ email', email);
-    // console.log('~ password', password);
-
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
-        // Signed in
         const user = userCredential.user;
-        console.log('~ user', user);
         dispatch({ type: loginCase, payload: user });
-
         navigate(homePath);
       })
       .catch(error => {
